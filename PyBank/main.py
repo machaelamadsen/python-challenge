@@ -6,7 +6,7 @@ budget_csv = os.path.join('PyBank','Resources' , 'budget_data.csv')
 #Define
 months_total = []
 profits = []
-months = []
+dates = []
 monthly_change = 0
 number = 0
 #Read CSV file
@@ -21,12 +21,15 @@ with open(budget_csv) as csvfile:
         monthly_change = int(row[1])-number
         profits.append(monthly_change)
         number = int(row[1])
+    
 
 #Find the greatest increase
     greatest_increase = max(profits)
- 
+   
 #Find the greatest loss
     greatest_loss = min(profits)
+
+
 #Calculate average monthly change
     average_profit_change = sum(profits)/len(profits)
 #Get Net Total of profits and losses
@@ -47,3 +50,13 @@ print(f"Average Change: ${average_profit_change}")
 print(f"Greatest Increase in Profits: ${greatest_increase}")
 print(f"Greatest Decrease in Profits: ${greatest_loss}")
 
+#Export as Text File
+output = os.path.join(".", 'output.txt')
+with open(output,"w") as new:
+    new.write("Financial Analysis\n")
+    new.write("---------------------------\n")
+    new.write(f"Total Months: {len(months_total)}\n")
+    new.write(f"Total: ${monthly_profit}\n") 
+    new.write(f"Average Change: ${average_profit_change}\n")
+    new.write(f"Greatest Increase in Profits: ${greatest_increase}\n")
+    new.write(f"Greatest Decrease in Profits: ${greatest_loss}\n")
